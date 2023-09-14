@@ -1,21 +1,17 @@
-# boolean is_sorted(lyst): This is a predicate function that returns 
-# True if lyst is sorted, False otherwise. In addition 
-# to verifying that lyst is a list, is_sorted() must also 
-# verify that every element in the list is an integer. 
-# If lyst is not a list, or a non-integer 
-# element is found in it, is_sorted should raise a TypeError exception.
+#code snippet 
+from random import seed, sample
 
-
-
+# error handling 
 def is_sorted(lyst):
-    integer = type(1)
-    if type(lyst[0]) != integer:
-        raise TypeError
-    else:
-        if all(lyst[i] <= lyst[i+1] for i in range(len(lyst)-1)) or all(lyst[i] >= lyst[i+1] for i in range(len(lyst)-1)):
-            return True
-        else:
-            return False
+    if not isinstance(lyst, list):
+        raise TypeError("Input is not a list.")
+    
+    for element in lyst:
+        if not isinstance(element, int):
+            raise TypeError("List contains non-integer elements.")
+    
+    return all(lyst[i] <= lyst[i+1] for i in range(len(lyst)-1))
+
 def quicksort(lyst):
     if not isinstance(lyst, list):
         raise TypeError("Input is not a list.")
@@ -48,7 +44,6 @@ def quicksort(lyst):
     
     quicksort_helper(lyst, 0, len(lyst)-1)
     return lyst, comparisons, swaps
-
 
 def mergesort(lyst):
     if not isinstance(lyst, list):
@@ -99,24 +94,63 @@ def mergesort(lyst):
     mergesort_helper(lyst, 0, len(lyst)-1)
     return lyst, comparisons, swaps
 
+def selection_sort(lyst):
+    if not isinstance(lyst, list):
+        raise TypeError("Input is not a list.")
+    
+    comparisons = 0
+    swaps = 0
+    
+    for i in range(len(lyst)):
+        min_index = i
+        for j in range(i+1, len(lyst)):
+            comparisons += 1
+            if lyst[j] < lyst[min_index]:
+                min_index = j
+        lyst[i], lyst[min_index] = lyst[min_index], lyst[i]
+        swaps += 1
+    
+    return lyst, comparisons, swaps
+
+def insertion_sort(lyst):
+    if not isinstance(lyst, list):
+        raise TypeError("Input is not a list.")
+    
+    comparisons = 0
+    swaps = 0
+    
+    for i in range(1, len(lyst)):
+        key = lyst[i]
+        j = i - 1
+        while j >= 0 and lyst[j] > key:
+            comparisons += 1
+            lyst[j+1] = lyst[j]
+            swaps += 1
+            j -= 1
+        lyst[j+1] = key
+        swaps += 1
+    
+    return lyst, comparisons, swaps
 
 def main():
-    lyst = [99,56,23,48,67,126,6,8,5]
-    print(quicksort(lyst))
-    print(f"mergesort:",mergesort(lyst))
-
-
-
-    # quicksorted = quicksort(lyst,0,len(lyst)-1)
-    # print(tuple(lyst),quicksorted)
-
-
-
-
-
-    # stringing="dog"
-    # lyst_sorted = sorted(lyst)
-    # results=is_sorted(lyst)
-    # print(results)
+    DATA_SIZE = 100000
+    seed(0)
+    DATA = sample(range(DATA_SIZE+3), k=DATA_SIZE)
+    test = DATA.copy()
+    
+    print("Starting insertion_sort")
+    results = insertion_sort(test)
+    sorted_list, comparisons, swaps = results
+    print("Sorted List:", sorted_list[:10])  # Example: print the first 10 elements
+    print("Comparisons:", comparisons)
+    print("Swaps:", swaps)
+    
+    # Repeat the above process for the other sorting functions:
+    # results = quicksort(test)
+    # results = mergesort(test)
+    # results = selection_sort(test)
+    
+    # Perform additional tests and analyze the results as needed
+    
 if __name__ == "__main__":
     main()
