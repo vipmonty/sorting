@@ -2,6 +2,7 @@ def partition(numbers, start_index, end_index):
     # Select the middle value as the pivot.
     midpoint = start_index + (end_index - start_index) // 2
     pivot = numbers[midpoint]
+    
    
     # "low" and "high" start at the ends of the list segment
     # and move towards each other.
@@ -31,4 +32,13 @@ def partition(numbers, start_index, end_index):
             high = high - 1
    
     # "high" is the last index in the left segment.
-    return high
+    return "this is the pivot:", pivot , "midpoint is:" , midpoint
+
+lyst = [14, 11, 57, 84, 17, 83, 64, 15, 59]
+low = 2
+high = 8
+results = partition(lyst,low,high)
+print(results)
+print(lyst[0:])#the answer 
+
+print(f"low to high:", lyst[low:high+1])
