@@ -12,7 +12,7 @@ def radix_get_max_length(numbers):
 def radix_get_length(value):
     if value == 0:
         return 1
-   
+    
     digits = 0
     while value != 0:
         digits += 1
@@ -24,10 +24,10 @@ def radix_sort(numbers):
     buckets = []
     for i in range(10):
         buckets.append([])
-    
+
     # Find the max length, in number of digits
     max_digits = radix_get_max_length(numbers)
-    
+        
     pow_10 = 1
     for digit_index in range(max_digits):
         for num in numbers:
@@ -40,7 +40,7 @@ def radix_sort(numbers):
             bucket.clear()
       
         pow_10 = pow_10 * 10
-    
+   
     negatives = []
     non_negatives = []
     for num in numbers:
@@ -54,7 +54,7 @@ def radix_sort(numbers):
 
 
 # Create a list of unsorted values
-numbers = [47, 81, 13, 5, 38, 96, 51, 64]
+numbers = [-9, 47, 81, 101, -5, 38, -99, 96, 51, -999, -11, 64]
 
 # Print unsorted list
 print('UNSORTED:', numbers)
